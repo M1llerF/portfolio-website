@@ -1,0 +1,268 @@
+.about {
+  min-height: 100vh;
+  background: transparent;
+  color: #e9ddc4;
+  padding: clamp(48px, 7vw, 120px) clamp(24px, 6vw, 84px);
+  padding-top: clamp(32px, 5vw, 96px);
+}
+
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.textFrame {
+  position: relative;
+  padding: clamp(24px, 4vw, 46px);
+  border-radius: 24px;
+  background: transparent;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.textFrame > * {
+  position: relative;
+  z-index: 2;
+}
+
+.textFrame::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    circle at top,
+    rgba(233, 221, 196, 0.1),
+    rgba(15, 15, 15, 0) 55%
+  );
+  opacity: 0;
+}
+
+.headline {
+  font-size: clamp(2.2rem, 4.8vw, 3.1rem);
+  font-weight: 600;
+  margin: 4px 0 12px;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.lead {
+  max-width: 740px;
+  margin: 0 auto clamp(20px, 3vw, 34px);
+  text-align: center;
+  line-height: 1.7;
+  font-size: 1rem;
+  color: rgba(233, 221, 196, 0.86);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(22px, 3vw, 38px);
+  --reveal-delay: 260ms;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.block[data-reveal] {
+}
+
+.grid .block[data-reveal]:nth-child(1) {
+  animation-delay: calc(var(--reveal-delay) + 80ms);
+}
+
+.grid .block[data-reveal]:nth-child(2) {
+  animation-delay: calc(var(--reveal-delay) + 320ms);
+}
+
+.grid .block[data-reveal]:nth-child(3) {
+  animation-delay: calc(var(--reveal-delay) + 560ms);
+}
+
+.blockTitle {
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  margin: 0 0 12px;
+  letter-spacing: 0.16em;
+  opacity: 0.85;
+}
+
+.copy {
+  margin: 0 0 10px;
+  line-height: 1.7;
+  font-size: 0.95rem;
+  color: rgba(233, 221, 196, 0.88);
+}
+
+.copyMuted {
+  margin: 8px 0 0;
+  line-height: 1.6;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+.list {
+  margin: 0 0 12px;
+  padding-left: 18px;
+  line-height: 1.7;
+  font-size: 0.93rem;
+  color: rgba(233, 221, 196, 0.85);
+}
+
+.subRule {
+  height: 1px;
+  background: rgba(233, 221, 196, 0.22);
+  margin: 14px 0;
+}
+
+.scrollReveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 420ms ease, transform 420ms ease;
+  will-change: opacity, transform;
+}
+
+.scrollReveal[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .headline {
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+  }
+}
+
+@keyframes intro-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollReveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .scrollReveal[data-visible="true"] {
+    transition: none;
+  }
+
+}
+
+/* Small star above title (subtle lo-fi) */
+.titleStar {
+  width: clamp(28px, 4vw, 42px);
+  height: clamp(28px, 4vw, 42px);
+  margin: 0 auto 12px;
+  display: grid;
+  place-items: center;
+  filter: drop-shadow(0 0 16px rgba(233, 221, 196, 0.4))
+    drop-shadow(0 0 36px rgba(233, 221, 196, 0.2));
+  opacity: 0.95;
+}
+
+.titleStar svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.titleStar polygon {
+  fill: rgba(233, 221, 196, 0.96);
+}
+
+/* Ring container around your 3-column grid */
+.ringFrame {
+  position: relative;
+  margin-top: clamp(16px, 2.6vw, 24px);
+  padding: clamp(40px, 5vw, 64px) clamp(24px, 4vw, 46px);
+}
+
+/* The rings themselves */
+.ringSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.ringSvg ellipse {
+  fill: none;
+  stroke: rgba(235, 224, 200, 0.28);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 14px rgba(235, 224, 200, 0.08));
+}
+
+/* Make the “imperfect” offset ring fainter */
+.ringSvg ellipse:nth-child(3) {
+  stroke: rgba(235, 224, 200, 0.12);
+  stroke-dasharray: 3 8;
+}
+
+/* Ensure your grid sits above the ring */
+.grid {
+  position: relative;
+  z-index: 2;
+}
+
+/* Make blocks feel like your pill labels: soft, dark glass, thin border */
+.block {
+  position: relative;
+  z-index: 2;
+
+  background: rgba(9, 8, 8, 0.92);
+  border: 1px solid rgba(235, 224, 200, 0.32);
+  border-radius: 18px;
+  padding: 20px 20px 18px;
+
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.28) inset,
+    0 16px 30px rgba(0, 0, 0, 0.28);
+
+  backdrop-filter: none;
+}
+
+.block::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 14px;
+  border: 1px solid rgba(233, 221, 196, 0.12);
+  pointer-events: none;
+}
+
+/* Optional: tighten headings to match lofi label vibe */
+.blockTitle {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+/* Responsive: keep rings reasonable on small screens */
+@media (max-width: 900px) {
+  .ringFrame {
+    padding: 28px 14px 18px;
+  }
+  .ringSvg ellipse {
+    stroke-width: 1;
+  }
+}

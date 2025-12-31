@@ -1,0 +1,328 @@
+/* =========================
+   BASE RESET
+   ========================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #f5f5f5;
+  color: #111;
+  overflow-x: hidden;
+}
+
+/* =========================
+   LINKS
+   ========================= */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   INTRO SCROLL SPLIT SCENE
+   ========================= */
+
+.intro {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.intro.intro--driven {
+  height: 260vh;
+
+  /* driven by JS */
+  --split: 0px;
+  --progress: 0;
+  --lineY: 50vh;
+}
+
+.intro-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: clamp(24px, 6vw, 96px);
+  overflow: hidden;
+}
+
+/* =========================
+   INTRO CONTENT
+   ========================= */
+
+.intro-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  text-align: center;
+}
+
+.intro-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 600;
+  margin: 0;
+}
+
+.intro-subtitle {
+  margin-top: 8px;
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+.intro-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+}
+
+.intro-scrollCue {
+  position: absolute;
+  left: 50%;
+  top: 90%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.7);
+  opacity: var(--scrollHintOpacity, 1);
+  transition: opacity 250ms ease;
+  pointer-events: none;
+}
+
+.intro-scrollCueArrow {
+  width: 10px;
+  height: 10px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  display: inline-block;
+  transform: rotate(45deg);
+  animation: intro-scroll-bob 1.6s ease-in-out infinite;
+}
+
+@keyframes intro-scroll-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(45deg);
+  }
+  50% {
+    transform: translateY(4px) rotate(45deg);
+  }
+}
+
+/* =========================
+   SPLITTING UNDERLINE
+   ========================= */
+
+.intro-lineSplit {
+  position: relative;
+  height: 3px;
+  margin: 12px 0;
+  z-index: 10;
+}
+
+.intro-lineHalf {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #111;
+
+  /* FULL BLEED */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+.intro-lineHalf.top {
+  transform: translateY(calc(-50% - var(--split)));
+}
+
+.intro-lineHalf.bottom {
+  transform: translateY(calc(-50% + var(--split)));
+}
+
+/* =========================
+   SANDBOX REVEAL BAND
+   ========================= */
+
+.intro-sandbox {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+
+  clip-path: polygon(
+    0 calc(var(--lineY) - var(--split)),
+    100% calc(var(--lineY) - var(--split)),
+    100% calc(var(--lineY) + var(--split)),
+    0 calc(var(--lineY) + var(--split))
+  );
+}
+
+.intro-sandboxInner {
+  position: absolute;
+  inset: 0;
+}
+
+.intro-eyeBurst {
+  position: absolute;
+  inset: 0;
+  pointer-events: var(--burstEvents, none);
+  z-index: 48;
+  clip-path: polygon(
+    0 calc(var(--lineY) - var(--split)),
+    100% calc(var(--lineY) - var(--split)),
+    100% calc(var(--lineY) + var(--split)),
+    0 calc(var(--lineY) + var(--split))
+  );
+}
+
+.intro-eyeBurstBg {
+  position: absolute;
+  left: var(--burstX, 50%);
+  top: var(--burstY, 50%);
+  width: var(--burstStart, 160px);
+  height: var(--burstStart, 160px);
+  border-radius: 50%;
+  background: #0f0f0f;
+  transform: translate(-50%, -50%) scale(var(--burstScale, 0));
+  opacity: var(--eyeVisible, 1);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.intro-about {
+  background: #0f0f0f;
+  opacity: var(--burstContentOpacity, 0);
+  transform: scale(var(--burstContentScale, 0.96));
+  transform-origin: top center;
+  transition: opacity 1000ms ease, transform 1000ms ease;
+  pointer-events: none;
+}
+
+.intro[data-about-visible="true"] .intro-about {
+  pointer-events: auto;
+}
+
+/* =========================
+   NEXT SECTION
+   ========================= */
+
+.after {
+  min-height: 100vh;
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+}
+
+.after-inner {
+  opacity: 0.6;
+  font-size: 1rem;
+}
+
+/* =========================
+   ABOUT SECTION
+   ========================= */
+
+.about-home {
+  background: #0f0f0f;
+  position: relative;
+  overflow: hidden;
+  margin-top: clamp(-180px, -18vh, -240px);
+  padding-top: clamp(180px, 18vh, 240px);
+}
+
+.about-home::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(233, 221, 196, 0.55) 1.2px, transparent 1.2px),
+    radial-gradient(circle, rgba(233, 221, 196, 0.38) 1.1px, transparent 1.1px),
+    radial-gradient(circle, rgba(233, 221, 196, 0.24) 1px, transparent 1px);
+  background-size: 90px 90px, 140px 140px, 200px 200px;
+  background-position: 0 0, 40px 60px, 90px 120px;
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.about-home::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(15, 15, 15, 0) 0%,
+    rgba(15, 15, 15, 0.18) 65%,
+    rgba(15, 15, 15, 0.35) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.about-home > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .about-home {
+    margin-top: 0;
+    padding-top: clamp(48px, 12vh, 120px);
+  }
+}
+
+/* =========================
+   ACCESSIBILITY
+   ========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .intro.intro--driven {
+    height: auto;
+  }
+
+  .intro-stage {
+    position: relative;
+    height: auto;
+  }
+
+  .intro-sandbox {
+    clip-path: none;
+  }
+
+  .intro-eyeBurst {
+    clip-path: none;
+  }
+
+  .intro-scrollCueArrow {
+    animation: none;
+  }
+}

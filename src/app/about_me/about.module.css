@@ -1,0 +1,61 @@
+.page {
+  min-height: 100vh;
+  background: #0f0f0f;
+  color: #e9ddc4;
+  padding: clamp(24px, 6vw, 84px);
+  position: relative;
+  overflow: hidden;
+}
+
+.backLink {
+  display: inline-block;
+  margin-bottom: 24px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  font-family: "Gill Sans", "Trebuchet MS", "Segoe UI", sans-serif;
+  color: rgba(233, 221, 196, 0.85);
+}
+
+.parallax {
+  transform: none;
+}
+
+.page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(233, 221, 196, 0.55) 1.2px, transparent 1.2px),
+    radial-gradient(circle, rgba(233, 221, 196, 0.38) 1.1px, transparent 1.1px),
+    radial-gradient(circle, rgba(233, 221, 196, 0.24) 1px, transparent 1px);
+  background-size: 90px 90px, 140px 140px, 200px 200px;
+  background-position: 0 0, 40px 60px, 90px 120px;
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(15, 15, 15, 0) 0%,
+    rgba(15, 15, 15, 0.18) 65%,
+    rgba(15, 15, 15, 0.35) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .parallax {
+    transform: none;
+  }
+}
