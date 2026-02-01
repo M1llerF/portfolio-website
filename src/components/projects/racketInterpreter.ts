@@ -8,6 +8,11 @@ export const racketInterpreterProject: ProjectPanelData = {
   title: "Interpreter for a Subset of Racket",
   description:
     "A custom evaluation engine that executes a subset of Racket inside a user-defined runtime. Implements lexical scoping, closures, recursion, and lists to explore how programming languages work beneath the syntax.",
+  quickPoints: [
+    "Wrote a custom evaluator + environment model to execute a subset of Racket inside my own runtime.",
+    "Implemented closures, lexical scope, higher-order functions, lists, and conditionals (no host-language shortcuts).",
+    "Implemented letrec for self/mutual recursion; verified semantics via comprehensive RackUnit tests.",
+  ],
   showcase: [
     {
       title: "What This Is",

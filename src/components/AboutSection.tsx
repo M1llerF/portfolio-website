@@ -121,6 +121,31 @@ export default function AboutSection({ className }: { className?: string }) {
                   <li>Does this design rely on implicit knowledge to make sense?</li>
                 </ul>
               </div>
+
+              <div
+                className={`${styles.block} ${styles.scrollReveal}`}
+                data-reveal
+                data-scroll-reveal
+              >
+                <h3 className={styles.blockTitle}>Contact</h3>
+                <p className={styles.copy}>
+                  Email:{" "}
+                  <a className={styles.contactLink} href="mailto:millerfwork@gmail.com">
+                    millerfwork@gmail.com
+                  </a>
+                </p>
+                <p className={styles.copyMuted}>
+                  LinkedIn:{" "}
+                  <a
+                    className={styles.contactLink}
+                    href="https://www.linkedin.com/in/miller-fourie-28020a2b9/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    linkedin.com/in/miller-fourie-28020a2b9
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
           {/* /ringFrame */}

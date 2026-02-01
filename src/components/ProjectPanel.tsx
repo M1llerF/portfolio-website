@@ -7,6 +7,7 @@ export type ProjectPanelData = {
   id: string;
   title: string;
   description: string;
+  quickPoints?: string[];
   imageSrc?: string;
   hero?: ProjectMedia;
   showcase?: ProjectShowcaseItem[];
@@ -124,6 +125,7 @@ export default function ProjectPanel({
 
     return (
       <section
+        data-project-panel="true"
         style={{
           position: "fixed",
           inset: 0,
@@ -239,8 +241,27 @@ export default function ProjectPanel({
               </h1>
               <div className="project-line" aria-hidden="true" />
 
+              {(project.quickPoints?.length ?? 0) > 0 && (
+                <div
+                  className={show ? "bubble-in bubble-2" : ""}
+                  style={{
+                    marginBottom: 18,
+                    transformOrigin: "50% 100%",
+                  }}
+                >
+                  <div className="project-quickCard">
+                    <div className="project-section-title">Quick Takeaways</div>
+                    <ul className="project-quickList">
+                      {project.quickPoints!.map((point, index) => (
+                        <li key={`${project.id}-quick-${index}`}>{point}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+
               <div
-                className={show ? "bubble-in bubble-2" : ""}
+                className={show ? "bubble-in bubble-3" : ""}
                 style={{
                   width: "100%",
                   borderRadius: 18,
@@ -257,7 +278,7 @@ export default function ProjectPanel({
               </div>
 
               <p
-                className={`${show ? "bubble-in bubble-3" : ""} project-description`}
+                className={`${show ? "bubble-in bubble-4" : ""} project-description`}
                 style={{ transformOrigin: "50% 100%" }}
               >
                 {project.description}
@@ -265,7 +286,7 @@ export default function ProjectPanel({
 
               {(project.showcase?.length ?? 0) > 0 && (
                 <div
-                  className={show ? "bubble-in bubble-4" : ""}
+                  className={show ? "bubble-in bubble-5" : ""}
                   style={{
                     display: "flex",
                     flexDirection: "column",
@@ -407,7 +428,7 @@ export default function ProjectPanel({
 
               {project.paper && (
                 <div
-                  className={show ? "bubble-in bubble-5" : ""}
+                  className={show ? "bubble-in bubble-6" : ""}
                   style={{
                     display: "flex",
                     flexDirection: "column",
@@ -445,7 +466,7 @@ export default function ProjectPanel({
 
               {(project.tags?.length ?? 0) > 0 && (
                 <div
-                  className={show ? "bubble-in bubble-6" : ""}
+                  className={show ? "bubble-in bubble-7" : ""}
                   style={{
                     display: "flex",
                     flexWrap: "wrap",
@@ -474,7 +495,7 @@ export default function ProjectPanel({
 
               {(project.links?.length ?? 0) > 0 && (
                 <div
-                  className={show ? "bubble-in bubble-7" : ""}
+                  className={show ? "bubble-in bubble-8" : ""}
                   style={{
                     display: "flex",
                     flexWrap: "wrap",
@@ -536,6 +557,9 @@ export default function ProjectPanel({
           .bubble-7 {
             animation-delay: 310ms;
           }
+          .bubble-8 {
+            animation-delay: 360ms;
+          }
           .project-kicker {
             font-size: 12px;
             letter-spacing: 0.32em;
@@ -570,6 +594,19 @@ export default function ProjectPanel({
             font-size: 1rem;
             line-height: 1.7;
             white-space: pre-line;
+          }
+          .project-quickCard {
+            background: rgba(13, 13, 13, 0.08);
+            border: 1px solid rgba(13, 13, 13, 0.12);
+            border-radius: 14px;
+            padding: 12px 14px;
+          }
+          .project-quickList {
+            margin: 10px 0 0;
+            padding-left: 18px;
+            line-height: 1.7;
+            font-size: 0.98rem;
+            color: rgba(13, 13, 13, 0.8);
           }
           .project-section-kicker {
             font-size: 0.7rem;

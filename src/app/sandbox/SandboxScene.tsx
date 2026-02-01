@@ -46,6 +46,7 @@ export default function SandboxScene() {
   const inProjectMode = !!openId || !!transition;
   const closing = !!closeTransition;
   const hideEye = inProjectMode || closing;
+  const lockScroll = inProjectMode || closing;
 
   useEffect(() => {
     document.documentElement.style.setProperty(
@@ -56,6 +57,64 @@ export default function SandboxScene() {
       document.documentElement.style.removeProperty("--eyeVisible");
     };
   }, [hideEye]);
+
+  useEffect(() => {
+    if (!lockScroll) {
+      return;
+    }
+
+    const scrollY = window.scrollY;
+
+    const isInsidePanel = (target: EventTarget | null) => {
+      if (!(target instanceof Element)) return false;
+      return !!target.closest("[data-project-panel]");
+    };
+
+    const onScroll = () => {
+      if (window.scrollY !== scrollY) {
+        window.scrollTo(0, scrollY);
+      }
+    };
+
+    const onWheel = (event: WheelEvent) => {
+      if (isInsidePanel(event.target)) return;
+      event.preventDefault();
+    };
+
+    const onTouchMove = (event: TouchEvent) => {
+      if (isInsidePanel(event.target)) return;
+      event.preventDefault();
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (isInsidePanel(event.target)) return;
+      if (
+        event.key === "ArrowDown" ||
+        event.key === "ArrowUp" ||
+        event.key === "PageDown" ||
+        event.key === "PageUp" ||
+        event.key === "Home" ||
+        event.key === "End" ||
+        event.key === " " ||
+        event.key === "Spacebar"
+      ) {
+        event.preventDefault();
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("keydown", onKeyDown);
+      window.scrollTo(0, scrollY);
+    };
+  }, [lockScroll]);
 
   const handleSelect = (id: string, _pos?: { x: number; y: number }, rect?: DOMRect) => {
     setSelectedId(id);

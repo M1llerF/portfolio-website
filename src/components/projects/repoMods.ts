@@ -8,6 +8,12 @@ export const repoModsProject: ProjectPanelData = {
   title: "R.E.P.O. Quality-of-Life Mods",
   description:
     "A collection of BepInEx mods built to solve real gameplay usability problems in R.E.P.O. — from precise sensitivity control to visualizing object mass, impact force, and drop prediction. What began as a one-day fix turned into a deep dive into runtime injection, visualization, collision handling, and performance-conscious mod design.",
+  quickPoints: [
+    "Built BepInEx QoL mods for R.E.P.O. players.",
+    "Added sensitivity control, mass/impact visualization, and drop prediction.",
+    "Learned runtime injection, collisions, and perf-friendly overlays.",
+    "100k total downloads.",
+  ],
   imageSrc: repoOfficialCover.src,
   showcase: [
     {

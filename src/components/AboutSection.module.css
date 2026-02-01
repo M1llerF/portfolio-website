@@ -102,6 +102,18 @@
   opacity: 0.75;
 }
 
+.contactLink {
+  color: rgba(233, 221, 196, 0.95);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(233, 221, 196, 0.45);
+  padding-bottom: 1px;
+}
+
+.contactLink:hover {
+  text-decoration: none;
+  border-bottom-color: rgba(233, 221, 196, 0.85);
+}
+
 .list {
   margin: 0 0 12px;
   padding-left: 18px;

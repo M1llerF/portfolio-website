@@ -7,6 +7,11 @@ export const rlMazeExplorerProject: ProjectPanelData = {
   title: "Q-Learning Maze Explorer",
   description:
     "My first self-taught AI project: a Q-learning agent that learns to solve a maze while streaming live telemetry (rewards, exploration rate, value updates, and solve streaks). Building it taught me the hard lessons of reinforcement learning: Q-learning doesn’t generalize to arbitrary mazes, and state design matters more than “more data.”",
+  quickPoints: [
+    "Built a live Q-learning maze solver with real-time reward, exploration, and value telemetry.",
+    "Designed and iterated on state representations to stabilize and accelerate convergence.",
+    "Demonstrated why tabular Q-learning fails to generalize without careful state design.",
+  ],
   imageSrc: threeMazesImage.src,
   hero: {
     type: "video",

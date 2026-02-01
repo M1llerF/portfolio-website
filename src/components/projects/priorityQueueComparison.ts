@@ -11,6 +11,11 @@ export const priorityQueueComparisonProject: ProjectPanelData = {
   title: "Priority Queue Performance: Binary vs. Fibonacci Heaps",
   description:
     "I designed and executed a comparative research study examining how theoretical heap guarantees translate into real-world performance. Working in a team of three, we implemented Binary and Fibonacci Heaps from scratch and built a controlled benchmarking framework to measure time and memory tradeoffs across core operations and Dijkstra’s algorithm.",
+  quickPoints: [
+    "Implemented Binary and Fibonacci heaps directly from their theoretical definitions.",
+    "Benchmarked insert, extract-min, decrease-key, merge, memory, and Dijkstra under controlled conditions.",
+    "Identified workload patterns where theoretical amortized bounds break down in practice.",
+  ],
   imageSrc: thumbnailPriorityQueue.src,
   showcase: [
     {
